@@ -1,4 +1,4 @@
-import React from "React";
+import React from "react";
 
 const Table = ({ data, config }) => {
   const rowKeys = config.map(c => c.rowKey);

@@ -3,6 +3,7 @@ import React from "react";
 import ErrorBoundary from "./components/error-boundary";
 import Menu from "./components/menu";
 import RiskLevelSelector from "./components/risk-level-selector";
+import InvestmentSumFeild from "./components/investment-sum-feild";
 import Routes from "./routes";
 import ConesClient from "./clients/cones-client";
 import { filterConesbyRisk } from "./utils";
@@ -11,6 +12,7 @@ import { RISK_RANGE } from "./constants";
 class App extends React.Component {
   state = {
     riskLevel: 3,
+    invSum: 10000,
     cones: [],
     cone: null,
     isFetchingCones: false,
@@ -43,8 +45,9 @@ class App extends React.Component {
     let cone = filterConesbyRisk(cones, riskLevel);
     this.setState({ riskLevel, cone });
   };
+  onInvestmentSumChange = invSum => this.setState({ invSum });
   render = () => {
-    const { riskLevel, cone, isFetchingCones } = this.state;
+    let { riskLevel, invSum, cone, isFetchingCones } = this.state;
     return (
       <ErrorBoundary>
         <Menu />
@@ -53,7 +56,11 @@ class App extends React.Component {
           onChangeRiskLevel={this.onChangeRiskLevel}
           value={riskLevel}
         />
-        <Routes cone={cone} isFetchingCones={isFetchingCones} />
+        <InvestmentSumFeild
+          onInvestmentSumChange={this.onInvestmentSumChange}
+          value={invSum}
+        />
+        <Routes invSum={invSum} cone={cone} isFetchingCones={isFetchingCones} />
       </ErrorBoundary>
     );
   };

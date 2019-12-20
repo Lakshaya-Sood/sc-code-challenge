@@ -2,6 +2,11 @@ export const RISK_RANGE = {
   min: 3,
   max: 25
 };
+export const TIMESERIES_DEFAULT_CONFIG = {
+  years: 10,
+  monthlySum: 200,
+  fee: 0.01
+};
 
 export const DATA_TABLE_CONFIG = [
   { colHeader: "month", rowKey: "entry" },

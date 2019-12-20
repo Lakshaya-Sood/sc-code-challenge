@@ -3,7 +3,6 @@ import { Chart as ChartJs } from "chart.js";
 
 class Chart extends React.Component {
   chart = null;
-  getDerivedStateFromProps = () => {};
   componentDidMount = () => this.drawChart();
   componentDidUpdate = () => this.reDrawChart();
   reDrawChart = () => {

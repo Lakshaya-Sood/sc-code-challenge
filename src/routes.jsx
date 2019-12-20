@@ -7,8 +7,12 @@ import YearValuationChart from "./components/years-valuation-chart";
 const Loading = () => <h3>Loading....</h3>;
 
 const WhileLoading = (Component, props) => () => {
-  let { cone, isFetchingCones } = props;
-  return isFetchingCones ? <Loading /> : <Component cone={cone} />;
+  let { cone, invSum, isFetchingCones } = props;
+  return isFetchingCones ? (
+    <Loading />
+  ) : (
+    <Component cone={cone} invSum={invSum} />
+  );
 };
 
 const Routes = props => {

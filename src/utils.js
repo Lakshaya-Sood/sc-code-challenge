@@ -1,8 +1,41 @@
+import { TIMESERIES_DEFAULT_CONFIG } from "./constants";
+
 export const filterConesbyRisk = (cones, riskLevel) => {
   cones = cones.filter(cone => cone.riskLevel == riskLevel);
   return cones[0];
 };
-export const mapDate = ({ t, mu, sigma, fee, initialSum, monthlySum }) => {
+
+export const getTimeSeriesConfig = (cone, initialSum) => {
+  const { mu, sigma } = cone;
+  const conf = {
+    ...TIMESERIES_DEFAULT_CONFIG,
+    mu,
+    sigma,
+    initialSum
+  };
+  return conf;
+};
+
+export const deriveFromTimeSeries = timeSeries => {
+  console.log(timeSeries);
+  let labels = timeSeries.median.map((v, idx) =>
+      idx % 12 == 0 ? idx / 12 : ""
+    ),
+    monthArr = timeSeries.median.map((v, idx) => idx),
+    dataGoodArr = timeSeries.upper95.map(v => v.y),
+    dataMedianArr = timeSeries.median.map(v => v.y),
+    dataBadArr = timeSeries.lower05.map(v => v.y);
+  let derived = {
+    labels,
+    monthArr,
+    dataGoodArr,
+    dataMedianArr,
+    dataBadArr
+  };
+  return derived;
+};
+
+const mapDate = ({ t, mu, sigma, fee, initialSum, monthlySum }) => {
   let yearlyReturn = mu - fee;
   let monthlyReturn = yearlyReturn / 12;
   let month = t * 12;
