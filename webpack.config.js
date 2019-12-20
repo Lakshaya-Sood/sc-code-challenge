@@ -1,27 +1,27 @@
-const path = require('path');
-const webpack = require('webpack');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const cones = require('./cones.json');
+const path = require("path");
+const webpack = require("webpack");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
+const cones = require("./cones.json");
 
 module.exports = {
-  mode: 'development',
-  entry: './src/index',
+  mode: "development",
+  entry: "./src/index",
   output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'build')
+    filename: "bundle.js",
+    path: path.resolve(__dirname, "build")
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new CopyWebpackPlugin([{ from: 'public/index.html' }])
+    new CopyWebpackPlugin([{ from: "public/index.html" }])
   ],
   devServer: {
     port: 3000,
-    contentBase: path.join(__dirname, './public'),
+    contentBase: path.join(__dirname, "./public"),
     hot: true,
     open: true,
     historyApiFallback: true,
     before: function(app) {
-      app.get('/api/cones', function(req, res) {
+      app.get("/api/cones", function(req, res) {
         res.json(cones);
       });
     }
@@ -30,9 +30,12 @@ module.exports = {
     rules: [
       {
         test: /.jsx?$/,
-        loader: 'babel-loader',
+        loader: "babel-loader",
         exclude: /node_modules/
       }
     ]
+  },
+  resolve: {
+    extensions: [".js", ".jsx"]
   }
 };
